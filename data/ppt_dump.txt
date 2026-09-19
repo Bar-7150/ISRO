@@ -1,0 +1,72 @@
+============================== SLIDE 1 ==============================
+  TITLE PAGE
+  SMART INDIA HACKATHON 2026
+  PS ID – ISRO-2026 | Problem Statement Title – AI-Powered Burn-In Screening for High-Reliability Semiconductor Components | Theme – AI / Quality & Reliability | PS Category – Software | Team ID – ISRO-AI-QA | Team Name – ISRO Reliability Analytics Team
+============================== SLIDE 2 ==============================
+  IDEA TITLE
+  Proposed Solution: AI-driven burn-in screening system for semiconductor reliability
+  • Detects early lot-level anomalies and latent defects before they escape into high-risk deployment
+  • Combines contextual anomaly detection with predictive drift forecasting to flag unstable devices at 24h/96h stages
+  • Provides explainable QA outputs using SHAP and decision rules for engineering sign-off
+  Why it matters: conventional static limits miss defects that appear normal early but drift catastrophically later in burn-in.
+  2
+  @SIH Idea submission- Template
+  ISRO Reliability Analytics Team
+============================== SLIDE 3 ==============================
+  TECHNICAL APPROACH
+  Technologies used: Python, scikit-learn, XGBoost, SHAP, Matplotlib, Seaborn, pandas, NumPy
+  Methodology:
+  • Feature engineering: Δ0–24h drift, % drift, lot-normalized Z-score, stress interaction signals
+  • Module A: Mahalanobis + Isolation Forest + LOF ensemble for contextual anomaly detection
+  • Module B: Gradient boosting with MAE + Bayesian uncertainty for 168h degradation prediction
+  • Decision layer: cost-sensitive Fβ thresholding and audit-ready QA disposition report
+  3
+  @SIH Idea submission- Template
+  ISRO Reliability Analytics Team
+============================== SLIDE 4 ==============================
+  FEASIBILITY AND VIABILITY
+  Feasibility:
+  • Uses standard industrial data pipelines and open-source ML libraries
+  • Works on burn-in production logs and wafer-level sensor data
+  • No special hardware required; deployment is software-based with manufacturing integration
+  Challenges and mitigation:
+  • Class imbalance → cost-sensitive scoring and recall-focused thresholding
+  • Lot-to-lot drift → contextual normalization and drift features
+  • Explainability need → SHAP + rule-based QA summaries
+  4
+  @SIH Idea submission- Template
+  ISRO Reliability Analytics Team
+============================== SLIDE 5 ==============================
+  IMPACT AND BENEFITS
+  Target audience:
+  • Semiconductor fabs, reliability labs, aerospace component QA teams, defense electronics producers
+  Benefits:
+  • Reduces escapes and safety-critical field failures
+  • Improves screening yield without sacrificing quality
+  • Enables early abort decisions for unstable lots
+  • Supports transparent engineering review and auditability
+  5
+  @SIH Idea submission- Template
+  ISRO Reliability Analytics Team
+============================== SLIDE 6 ==============================
+  RESEARCH AND REFERENCES
+  Reference sources and benchmark mapping:
+  • UCI SECOM semiconductor defect dataset for contextual anomaly screening
+  • NASA C-MAPSS turbofan degradation dataset for time-to-failure drift prediction
+  • Reliability engineering literature on burn-in, latent defect detection, and drift acceleration
+  • Project implementation: end-to-end ML pipeline for early anomaly detection and late-stage degradation forecasting
+  6
+  @SIH Idea submission- Template
+  ISRO Reliability Analytics Team
+============================== SLIDE 7 ==============================
+  7
+  @SIH Idea submission- Template
+  Kindly keep the maximum slides limit up to six (6). ( Including the title slide) 
+  Try to avoid paragraphs and post your idea in points /diagrams / Infographics /pictures 
+  Keep your explanation precise and easy to understand
+  Idea should be unique and novel. 
+  You can only use provided template for making the PPT without changing the idea details pointers (mentioned in previous slides).
+  You need to save the file in PDF and upload the same on portal. No PPT, Word Doc or any other format will be supported.
+  Note - You can delete this slide (Important Pointers) when you upload the details of your idea on SIH portal.
+  IMPORTANT INSTRUCTIONS
+  Please ensure below pointers are met while submitting the Idea PPT:
