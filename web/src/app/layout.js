@@ -1,22 +1,33 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "ISRO Edge-AI Component Burn-In Screening & Mission Assurance",
+  title: "PARIKSHAN-AI • ISRO Space-Grade Semiconductor Qualification & Burn-In Screening",
   description:
-    "Physics-Informed Edge AI System for High-Reliability Semiconductor Burn-In Screening: AEC-Q001 DPAT Anomaly Detection, 168h Time-Series Drift Forecasting, TreeSHAP Explainability, and Fail-Safe Hardware Relay Eject.",
+    "PARIKSHAN-AI: Physics-Informed Edge AI System for ISRO High-Reliability Semiconductor Burn-In Screening, AEC-Q001 DPAT Anomaly Detection, 168h Arrhenius PINN Drift Forecasting, and AS9100/MIL-STD-883 Digital Certification.",
   keywords: [
+    "PARIKSHAN-AI",
+    "PARIKSHAN",
     "ISRO",
     "Semiconductor Screening",
     "Burn-In Testing",
     "Dynamic Part Average Testing",
     "DPAT",
+    "PINN",
+    "Arrhenius Thermodynamics",
+    "Conformal Prediction",
     "XGBoost Drift Predictor",
     "Edge AI",
     "Raspberry Pi",
     "SHAP Explainability",
+    "AS9100 Rev D",
+    "MIL-STD-883",
     "Space Mission Assurance",
   ],
-  authors: [{ name: "Aerospace Edge-AI Engineering Team" }],
+  icons: {
+    icon: "/parikshan_logo.png",
+    apple: "/parikshan_logo.png",
+  },
+  authors: [{ name: "PARIKSHAN-AI Aerospace Engineering Team" }],
 };
 
 export default function RootLayout({ children }) {
