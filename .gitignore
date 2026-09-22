@@ -1,0 +1,41 @@
+# Presentations, Reports & Scripts
+implementation_plan for main one
+NMIET_SIH_2026_PPT_Template_original.pptx
+NMIET_SIH_2026_PPT_Template_Updated.pptx
+NMIET_SIH_2026_PPT_Template.pptx
+26131KrishiRakshakAI.pptx
+report.docx
+*.pptx
+*.docx
+update_sih_ppt.py
+update_presentation.py
+reports/
+docs/
+
+# Temporary / Office Lock files
+~$*
+*.tmp
+
+# Python Cache & Build Artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# Virtual Environments
+.env
+.env.*
+venv/
+.venv/
+env/
+
+# Web / Node Artifacts
+node_modules/
+.next/
+out/
+.vercel/
