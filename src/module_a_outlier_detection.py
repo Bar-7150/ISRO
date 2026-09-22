@@ -259,3 +259,222 @@ class DynamicOutlierDetector:
         thresh = threshold if threshold is not None else self.optimal_threshold_
         scores_df = self.predict_anomaly_scores(X)
         return (scores_df["ensemble_anomaly_score"].values >= thresh).astype(int)
+
+
+class DPATEngine:
+    """
+    Dynamic Part Average Testing (DPAT) Engine compliant with AEC-Q001 standard.
+    
+    Static limits fail to catch latent defects that operate within absolute datasheet specs
+    but deviate drastically from their production lot distribution.
+    
+    Example:
+      If a lot has an average leakage current of 10 uA (sigma = 2.5 uA),
+      a component showing 45 uA is an extreme +14.0 sigma outlier,
+      even though it falls beneath an absolute datasheet maximum limit of 50 uA.
+    """
+
+    def __init__(self, k_sigma: float = 3.0, robust: bool = True):
+        """
+        Args:
+            k_sigma: Multiplier for standard deviation / pseudo-sigma (default 3.0 or 4.0).
+            robust: If True, uses Median and IQR (pseudo-sigma = IQR * 0.7413) to resist
+                    outlier contamination in baseline estimation.
+        """
+        self.k_sigma = k_sigma
+        self.robust = robust
+        self.lot_limits_ = {}
+
+    def fit_lot_limits(
+        self,
+        df: pd.DataFrame,
+        param_col: str,
+        lot_col: str = "lot_id"
+    ) -> "DPATEngine":
+        """
+        Calculates dynamic screening limits for each lot.
+        Upper DPAT Limit = Center + k * Spread
+        Lower DPAT Limit = Center - k * Spread
+        """
+        self.lot_limits_[param_col] = {}
+        for lot_id, group in df.groupby(lot_col):
+            vals = group[param_col].dropna().values
+            if len(vals) == 0:
+                continue
+            if self.robust:
+                median = float(np.median(vals))
+                q75, q25 = np.percentile(vals, [75, 25])
+                iqr = q75 - q25
+                pseudo_sigma = max(iqr * 0.7413, 1e-6)
+                center = median
+                spread = pseudo_sigma
+            else:
+                center = float(np.mean(vals))
+                spread = float(np.std(vals))
+                if spread < 1e-6:
+                    spread = 1e-6
+
+            upper_limit = center + self.k_sigma * spread
+            lower_limit = center - self.k_sigma * spread
+            self.lot_limits_[param_col][lot_id] = {
+                "center": center,
+                "spread": spread,
+                "upper_limit": upper_limit,
+                "lower_limit": lower_limit,
+            }
+        return self
+
+    def screen_units(
+        self,
+        df: pd.DataFrame,
+        param_col: str,
+        static_max_limit: Optional[float] = None,
+        lot_col: str = "lot_id"
+    ) -> pd.DataFrame:
+        """
+        Screens units using dynamic DPAT limits and compares against static specification.
+        Returns a DataFrame with DPAT bounds, flags, and latent defect escape status.
+        """
+        out_df = df.copy()
+        if param_col not in self.lot_limits_:
+            self.fit_lot_limits(df, param_col, lot_col)
+
+        lot_dict = self.lot_limits_[param_col]
+        upper_limits = []
+        lower_limits = []
+        z_scores = []
+        dpat_rejects = []
+        static_rejects = []
+        latent_escapes = []
+
+        for idx, row in df.iterrows():
+            lot_id = row.get(lot_col, "LOT_DEFAULT")
+            val = float(row[param_col])
+            limits = lot_dict.get(lot_id, None)
+
+            if limits is None:
+                center = df[param_col].mean()
+                spread = max(df[param_col].std(), 1e-6)
+                u_lim = center + self.k_sigma * spread
+                l_lim = center - self.k_sigma * spread
+            else:
+                center = limits["center"]
+                spread = limits["spread"]
+                u_lim = limits["upper_limit"]
+                l_lim = limits["lower_limit"]
+
+            z = (val - center) / spread
+            is_dpat_reject = bool(val > u_lim or val < l_lim)
+            is_static_reject = bool(val > static_max_limit) if static_max_limit is not None else False
+
+            # Latent defect escape: Passes static spec but fails dynamic DPAT
+            is_latent_escape = bool((not is_static_reject) and is_dpat_reject)
+
+            upper_limits.append(u_lim)
+            lower_limits.append(l_lim)
+            z_scores.append(z)
+            dpat_rejects.append(int(is_dpat_reject))
+            static_rejects.append(int(is_static_reject))
+            latent_escapes.append(int(is_latent_escape))
+
+        out_df[f"{param_col}_dpat_upper"] = upper_limits
+        out_df[f"{param_col}_dpat_lower"] = lower_limits
+        out_df[f"{param_col}_zscore"] = z_scores
+        out_df[f"{param_col}_dpat_reject"] = dpat_rejects
+        out_df[f"{param_col}_static_reject"] = static_rejects
+        out_df[f"{param_col}_latent_defect_escape"] = latent_escapes
+        return out_df
+
+    @staticmethod
+    def evaluate_latent_defect_benchmark(
+        lot_mean: float = 10.0,
+        lot_std: float = 2.5,
+        candidate_value: float = 45.0,
+        static_spec_limit: float = 50.0,
+        k_sigma: float = 3.0
+    ) -> Dict[str, Union[float, str, bool]]:
+        """
+        Direct mathematical demonstration of the ISRO benchmark case:
+        Lot mean = 10 uA, Part = 45 uA, Spec Limit = 50 uA.
+        """
+        dpat_upper = lot_mean + k_sigma * lot_std
+        z_score = (candidate_value - lot_mean) / lot_std
+        passes_static = candidate_value <= static_spec_limit
+        passes_dpat = candidate_value <= dpat_upper
+        latent_defect_escaped = passes_static and (not passes_dpat)
+
+        return {
+            "lot_mean_ua": lot_mean,
+            "lot_std_ua": lot_std,
+            "candidate_value_ua": candidate_value,
+            "static_spec_limit_ua": static_spec_limit,
+            "dpat_upper_limit_ua": round(dpat_upper, 3),
+            "z_score_sigma": round(z_score, 2),
+            "static_screening_disposition": "PASS (ESCAPE!)" if passes_static else "REJECT",
+            "dpat_dynamic_disposition": "REJECT (CAUGHT)" if not passes_dpat else "PASS",
+            "is_latent_defect": True,
+            "escapes_static_screening": latent_defect_escaped,
+            "physics_disposition": (
+                f"Static test PASSES ({candidate_value}uA <= {static_spec_limit}uA) allowing field escape! "
+                f"DPAT DYNAMICALLY REJECTS ({candidate_value}uA > {dpat_upper:.1f}uA, Z={z_score:+.1f}sigma). "
+                f"Prevents mission-critical satellite infant mortality."
+            )
+        }
+
+
+class GDBNSpatialEngine:
+    """
+    Good Die in Bad Neighborhood (GDBN) Spatial Risk Engine.
+    Evaluates spatial defect clustering on wafer or burn-in carrier socket maps.
+    Dies adjacent to multiple failing components inherit high latent defect risk.
+    """
+
+    def __init__(self, neighborhood_radius: float = 1.5, defect_density_threshold: float = 0.35):
+        self.neighborhood_radius = neighborhood_radius
+        self.defect_density_threshold = defect_density_threshold
+
+    def compute_spatial_risk(
+        self,
+        df: pd.DataFrame,
+        x_col: str = "socket_x",
+        y_col: str = "socket_y",
+        defect_flag_col: str = "dpat_reject"
+    ) -> pd.DataFrame:
+        """
+        Calculates neighbor defect count and spatial defect density for each component.
+        """
+        out_df = df.copy()
+        coords = out_df[[x_col, y_col]].values
+        flags = out_df[defect_flag_col].values
+        n = len(df)
+
+        neighbor_defects = np.zeros(n, dtype=int)
+        neighbor_totals = np.zeros(n, dtype=int)
+        spatial_risks = np.zeros(n, dtype=float)
+        gdbn_rejects = np.zeros(n, dtype=int)
+
+        for i in range(n):
+            xi, yi = coords[i]
+            dists = np.sqrt((coords[:, 0] - xi) ** 2 + (coords[:, 1] - yi) ** 2)
+            # Find neighbors within radius, excluding self
+            mask = (dists > 0) & (dists <= self.neighborhood_radius)
+            total_neighbors = int(np.sum(mask))
+            if total_neighbors > 0:
+                defects_around = int(np.sum(flags[mask]))
+                density = defects_around / total_neighbors
+            else:
+                defects_around = 0
+                density = 0.0
+
+            neighbor_defects[i] = defects_around
+            neighbor_totals[i] = total_neighbors
+            spatial_risks[i] = density
+            # GDBN triggers if die itself passed, but neighborhood is heavily contaminated
+            gdbn_rejects[i] = int((flags[i] == 0) and (density >= self.defect_density_threshold))
+
+        out_df["gdbn_neighbor_defects"] = neighbor_defects
+        out_df["gdbn_neighbor_total"] = neighbor_totals
+        out_df["gdbn_spatial_risk_density"] = spatial_risks
+        out_df["gdbn_spatial_reject"] = gdbn_rejects
+        return out_df
+
