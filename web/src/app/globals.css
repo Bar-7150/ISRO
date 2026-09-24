@@ -744,3 +744,501 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 3rem;
   background: rgba(255, 255, 255, 0.6);
 }
+
+/* =========================================================================
+   DARK ORBIT MODE & HIGH-TECH AEROSPACE CYBER HUD EXTENSIONS
+   ========================================================================= */
+
+body.dark-mode {
+  --bg-deep: #050b14;
+  --bg-surface: #0a1322;
+  --bg-card: rgba(13, 24, 44, 0.88);
+  --bg-card-hover: rgba(18, 32, 58, 0.95);
+  --bg-inner: #07101d;
+  --bg-subtle: rgba(13, 27, 48, 0.7);
+  --border-subtle: rgba(30, 58, 95, 0.6);
+  --border-active: rgba(0, 240, 255, 0.6);
+  --text-primary: #f0f6fc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --primary-blue: #00f0ff;
+  --cyan-neon: #00f0ff;
+  --isro-orange: #ff7700;
+  --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.6);
+  background-color: #050b14;
+  color: #f0f6fc;
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 240, 255, 0.12), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(255, 119, 0, 0.08), transparent 60%),
+    linear-gradient(180deg, #050b14 0%, #0a1322 100%);
+}
+
+body.dark-mode .top-header {
+  background: rgba(7, 14, 26, 0.92);
+  border-bottom: 1px solid rgba(30, 58, 95, 0.8);
+}
+
+body.dark-mode .definition-banner {
+  background: linear-gradient(135deg, rgba(13, 27, 48, 0.9) 0%, rgba(7, 16, 29, 0.95) 100%);
+  border-color: rgba(0, 240, 255, 0.3);
+}
+
+body.dark-mode .tab-btn {
+  background: rgba(10, 20, 36, 0.6);
+  color: #94a3b8;
+  border-color: rgba(30, 58, 95, 0.6);
+}
+
+body.dark-mode .tab-btn:hover {
+  background: rgba(18, 35, 62, 0.8);
+  color: #f0f6fc;
+}
+
+body.dark-mode .tab-btn.active {
+  background: rgba(0, 240, 255, 0.15);
+  color: #00f0ff;
+  border-color: #00f0ff;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+}
+
+body.dark-mode .kpi-card {
+  background: rgba(10, 22, 40, 0.85);
+  border-color: rgba(30, 58, 95, 0.8);
+}
+
+body.dark-mode .benchmark-table th {
+  background: rgba(13, 27, 48, 0.8);
+  color: #94a3b8;
+  border-bottom: 1px solid rgba(30, 58, 95, 0.8);
+}
+
+body.dark-mode .benchmark-table td {
+  border-bottom: 1px solid rgba(30, 58, 95, 0.5);
+}
+
+body.dark-mode .benchmark-table tr:hover td {
+  background: rgba(0, 240, 255, 0.05);
+}
+
+body.dark-mode .footer-bar {
+  background: rgba(7, 14, 26, 0.8);
+  border-top-color: rgba(30, 58, 95, 0.6);
+}
+
+/* Device Family Selector Strip */
+.family-strip {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.25rem 0 1rem 0;
+  margin-bottom: 1.25rem;
+}
+
+.family-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.family-btn:hover {
+  border-color: var(--primary-blue);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.family-btn.active {
+  background: rgba(2, 132, 199, 0.12);
+  border-color: var(--primary-blue);
+  color: var(--primary-blue);
+  box-shadow: 0 0 12px rgba(2, 132, 199, 0.2);
+}
+
+body.dark-mode .family-btn.active {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: #00f0ff;
+  color: #00f0ff;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+}
+
+/* Circular Wafer Disc Styles */
+.wafer-disc-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wafer-disc-circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #f1f5f9 0%, #cbd5e1 55%, #94a3b8 100%);
+  border: 3px solid #64748b;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12), inset 0 2px 10px rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+body.dark-mode .wafer-disc-circle {
+  background: radial-gradient(circle at 35% 35%, #1e293b 0%, #0f172a 60%, #020617 100%);
+  border-color: #38bdf8;
+  box-shadow: 0 0 35px rgba(56, 189, 248, 0.25), inset 0 0 20px rgba(56, 189, 248, 0.15);
+}
+
+/* SEMI Notch at bottom of wafer */
+.wafer-notch {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 9px;
+  background: var(--bg-deep);
+  border-radius: 4px 4px 0 0;
+  border-top: 2px solid #64748b;
+  z-index: 10;
+}
+
+body.dark-mode .wafer-notch {
+  background: #050b14;
+  border-top-color: #38bdf8;
+}
+
+/* Circular Wafer Concentric Grid */
+.wafer-circular-grid {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  gap: 3px;
+  width: 100%;
+  height: 100%;
+  align-content: center;
+  justify-content: center;
+}
+
+.wafer-die-cell {
+  aspect-ratio: 1 / 1;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.wafer-die-cell.empty {
+  visibility: hidden;
+}
+
+.wafer-die-cell.pass {
+  background: rgba(5, 150, 105, 0.2);
+  border: 1px solid rgba(5, 150, 105, 0.4);
+  color: #047857;
+}
+
+body.dark-mode .wafer-die-cell.pass {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.5);
+  color: #34d399;
+}
+
+.wafer-die-cell.dpat-reject {
+  background: rgba(220, 38, 38, 0.35);
+  border: 1px solid #ef4444;
+  color: #b91c1c;
+  animation: pulse-reject 1.8s infinite;
+}
+
+body.dark-mode .wafer-die-cell.dpat-reject {
+  background: rgba(239, 68, 68, 0.35);
+  border-color: #f87171;
+  color: #fca5a5;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+}
+
+.wafer-die-cell.gdbn-risk {
+  background: rgba(217, 119, 6, 0.3);
+  border: 1px dashed #d97706;
+  color: #b45309;
+}
+
+body.dark-mode .wafer-die-cell.gdbn-risk {
+  background: rgba(245, 158, 11, 0.25);
+  border-color: #fbbf24;
+  color: #fde68a;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.4);
+}
+
+.wafer-die-cell.selected {
+  outline: 2px solid #0284c7;
+  outline-offset: 1px;
+  transform: scale(1.15);
+  z-index: 5;
+}
+
+body.dark-mode .wafer-die-cell.selected {
+  outline: 2px solid #00f0ff;
+  box-shadow: 0 0 10px #00f0ff;
+}
+
+@keyframes pulse-reject {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* High-Speed ATE Stream Dashboard */
+.ate-stream-hud {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.ate-bin-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.1rem;
+  transition: all 0.2s ease;
+}
+
+.ate-bin-card.bin-pass {
+  border-left: 4px solid var(--success-green);
+}
+
+.ate-bin-card.bin-review {
+  border-left: 4px solid var(--warning-amber);
+}
+
+.ate-bin-card.bin-dpat {
+  border-left: 4px solid var(--danger-red);
+}
+
+.ate-bin-card.bin-abort {
+  border-left: 4px solid var(--isro-orange);
+}
+
+.ate-bin-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: space-between;
+}
+
+.ate-bin-count {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0.3rem 0;
+}
+
+.ate-bin-pct {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Stream Control Toolbar */
+.stream-toolbar {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0.85rem 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+}
+
+.stream-btn {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.stream-btn:hover {
+  border-color: var(--primary-blue);
+  background: rgba(2, 132, 199, 0.08);
+}
+
+.stream-btn.primary {
+  background: var(--primary-blue);
+  color: white;
+  border-color: var(--primary-blue);
+}
+
+body.dark-mode .stream-btn.primary {
+  background: #00f0ff;
+  color: #050b14;
+  border-color: #00f0ff;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+}
+
+/* =========================================================================
+   AEROSPACE CYBER HUD TOAST & NOTIFICATION SYSTEM
+   ========================================================================= */
+
+.cyber-toast-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 99999;
+  max-width: 440px;
+  width: calc(100vw - 4rem);
+  pointer-events: none;
+}
+
+.cyber-toast {
+  pointer-events: auto;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+  border-left: 5px solid var(--primary-blue);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.4rem;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2), 0 0 25px rgba(2, 132, 199, 0.15);
+  animation: toast-slide-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  transition: all 0.25s ease;
+}
+
+body.dark-mode .cyber-toast {
+  background: rgba(10, 20, 36, 0.95);
+  border-color: rgba(30, 58, 95, 0.9);
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 240, 255, 0.2);
+}
+
+.cyber-toast.toast-success {
+  border-left-color: var(--success-green);
+}
+
+.cyber-toast.toast-info {
+  border-left-color: var(--primary-blue);
+}
+
+.cyber-toast.toast-warning {
+  border-left-color: var(--warning-amber);
+}
+
+.cyber-toast.toast-error {
+  border-left-color: var(--danger-red);
+}
+
+.cyber-toast-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cyber-toast-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  background: rgba(2, 132, 199, 0.12);
+  color: var(--primary-blue);
+  letter-spacing: 0.05em;
+}
+
+body.dark-mode .cyber-toast-badge {
+  background: rgba(0, 240, 255, 0.15);
+  color: #00f0ff;
+}
+
+.cyber-toast-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.2rem;
+  transition: color 0.15s ease;
+}
+
+.cyber-toast-close:hover {
+  color: var(--text-primary);
+}
+
+.cyber-toast-title {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cyber-toast-msg {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.cyber-toast-details {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  background: var(--bg-inner);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  color: var(--text-muted);
+  word-break: break-all;
+  margin-top: 0.25rem;
+}
+
+@keyframes toast-slide-in {
+  from {
+    transform: translateY(30px) scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+

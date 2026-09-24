@@ -112,8 +112,8 @@ def main():
     print(f"    - Value_0h (Pre-Burn-In):    {val_0h:.2f} µA")
     print(f"    - Value_24h (Measured 24h):  {val_24h:.2f} µA (Δ = +{val_24h - val_0h:.2f} µA)")
     print(f"    - Forecasted Value_96h:      {traj['trajectory_values_ua'][2]:.2f} µA")
-    print(f"    - Forecasted Value_168h:     {traj['pred_168h_point_ua']:.2f} µA")
-    print(f"    - Bayesian 95% UCL:          {traj['pred_168h_ucl_ua']:.2f} µA (Safety Limit: {safety_limit:.1f} µA)")
+    conformal_upper = traj.get("pred_168h_conformal_upper_ua", traj.get("pred_168h_ucl_ua", 0.0))
+    print(f"    - Conformal 99.9% Upper UCL: {conformal_upper:.2f} µA (Safety Limit: {safety_limit:.1f} µA)")
 
     print(f"\n  • Safety Slope Qualification Verdict:")
     print(f"    - Early Drift Velocity:      {slope['k_early_velocity_ua_per_h']:.4f} µA/h")
