@@ -9,6 +9,7 @@ const DEVICE_FAMILIES = {
   digital_cmos: {
     id: "digital_cmos",
     name: "Digital CMOS ASIC / Processor",
+    menu_title: "Digital CMOS ASIC\nProcessor (µA)",
     standard: "MIL-PRF-38535 Class V",
     monitored_param: "Quiescent Leakage (Iddq)",
     unit: "µA",
@@ -27,6 +28,7 @@ const DEVICE_FAMILIES = {
   analog_opamp: {
     id: "analog_opamp",
     name: "Space-Grade Analog OP-AMP / ADC",
+    menu_title: "Space Analog OP-AMP\nADC Drift (mV)",
     standard: "MIL-STD-883 Method 1015",
     monitored_param: "Input Offset Voltage (Vos) Drift",
     unit: "mV",
@@ -45,6 +47,7 @@ const DEVICE_FAMILIES = {
   voltage_reference: {
     id: "voltage_reference",
     name: "Precision Bandgap Voltage Reference",
+    menu_title: "Precision Bandgap\nVoltage Ref (ppm)",
     standard: "ESA/SCC 9000 Specification",
     monitored_param: "Reference Voltage Drift (ΔVref)",
     unit: "ppm",
@@ -63,6 +66,7 @@ const DEVICE_FAMILIES = {
   mems_gyro: {
     id: "mems_gyro",
     name: "Tactical MEMS Vibratory Gyroscope",
+    menu_title: "Tactical MEMS\nVibratory Gyro (°/hr)",
     standard: "AIAA Space Qualified Micro-Systems",
     monitored_param: "Zero-Rate Output (ZRO) Bias Drift",
     unit: "°/hr",
@@ -81,6 +85,7 @@ const DEVICE_FAMILIES = {
   cmos_image_sensor: {
     id: "cmos_image_sensor",
     name: "Space CMOS Star Tracker / Focal Plane",
+    menu_title: "Space Star Tracker\nFocal Plane (pA/cm²)",
     standard: "ECSS-Q-ST-60-02C Space ASIC",
     monitored_param: "Dark Current Density (Idark)",
     unit: "pA/cm²",
@@ -589,10 +594,10 @@ export default function Home() {
           </div>
           <div className="definition-content">
             <div className="definition-title">
-              <span>Next-Gen Semiconductor Qualification vs. Traditional Screening & AstraGuard</span>
+              <span>ISRO AUTONOMOUS SEMICONDUCTOR QUALIFICATION PLATFORM (SIH #26170)</span>
             </div>
             <p className="definition-text">
-              While conventional screening and black-box ML platforms rely on static datasheet limits and generic regressors, <strong>PARIKSHAN-AI 2.0</strong> integrates <strong>Arrhenius-governed Physics-Informed Neural Networks (PINNs)</strong>, <strong>99.9% Conformal Prediction</strong> (mathematically bounding defect escapes to $\le 0.01\%$), <strong>Good-Die-Bad-Neighborhood (GDBN) spatial wafer clustering</strong>, and a closed-loop <strong>optocoupled hardware relay</strong> to slash qualification burn-in time from 168h to 24h (-85.7% energy).
+              <strong>Arrhenius-PINN ML</strong> • <strong>99.9% Conformal Risk Cone (&le;0.01% escapes)</strong> • <strong>AEC-Q001 GDBN Spatial Wafer Matrix</strong> • <strong>24h Early Abort (-85.7% Energy)</strong> • <strong>Optocoupled Fail-Safe Relay (&lt;12ms Cutoff)</strong>
             </p>
           </div>
         </section>
@@ -605,9 +610,8 @@ export default function Home() {
               className={`family-btn ${selectedFamilyId === fam.id ? "active" : ""}`}
               onClick={() => handleFamilyChange(fam.id)}
             >
-              <span>{selectedFamilyId === fam.id ? "🛰️" : "🔹"}</span>
-              <span>{fam.name}</span>
-              <span className="mono" style={{ fontSize: "0.7rem", opacity: 0.8 }}>({fam.unit})</span>
+              <span style={{ fontSize: "0.88rem", flexShrink: 0 }}>{selectedFamilyId === fam.id ? "🛰️" : "🔹"}</span>
+              <span>{fam.menu_title}</span>
             </button>
           ))}
         </div>
@@ -673,12 +677,12 @@ export default function Home() {
             className={`tab-btn ${activeTab === "module_a" ? "active" : ""}`}
             onClick={() => setActiveTab("module_a")}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0 }}>
               <circle cx="12" cy="12" r="10" />
               <line x1="12" y1="8" x2="12" y2="12" />
               <line x1="12" y1="16" x2="12.01" y2="16" />
             </svg>
-            Module A: Circular Wafer & DPAT
+            <span>{"Module A:\nWafer & DPAT"}</span>
           </button>
 
           <button
@@ -686,10 +690,10 @@ export default function Home() {
             className={`tab-btn ${activeTab === "module_b" ? "active" : ""}`}
             onClick={() => setActiveTab("module_b")}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0 }}>
               <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
             </svg>
-            Module B: Physics & Conformal Predictor
+            <span>{"Module B:\nPhysics & Conformal"}</span>
           </button>
 
           <button
@@ -697,10 +701,10 @@ export default function Home() {
             className={`tab-btn ${activeTab === "ate_stream" ? "active" : ""}`}
             onClick={() => setActiveTab("ate_stream")}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0 }}>
               <polygon points="5 3 19 12 5 21 5 3" />
             </svg>
-            ATE High-Speed Stream & Benchmarks
+            <span>{"ATE Stream:\nHigh-Speed & Bins"}</span>
           </button>
 
           <button
@@ -708,13 +712,13 @@ export default function Home() {
             className={`tab-btn ${activeTab === "explainability" ? "active" : ""}`}
             onClick={() => setActiveTab("explainability")}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0 }}>
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
               <polyline points="14 2 14 8 20 8" />
               <line x1="16" y1="13" x2="8" y2="13" />
               <line x1="16" y1="17" x2="8" y2="17" />
             </svg>
-            SHAP Attribution & AS9100 Certificate
+            <span>{"SHAP & Audit:\nAS9100 Certificate"}</span>
           </button>
 
           <button
@@ -722,13 +726,13 @@ export default function Home() {
             className={`tab-btn ${activeTab === "hardware" ? "active" : ""}`}
             onClick={() => setActiveTab("hardware")}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0 }}>
               <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
               <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
               <line x1="6" y1="6" x2="6.01" y2="6" />
               <line x1="6" y1="18" x2="6.01" y2="18" />
             </svg>
-            Hardware Relay & INA219 Auto-Zero
+            <span>{"Hardware Safety:\nRelay & INA219"}</span>
           </button>
 
           <button
@@ -736,14 +740,14 @@ export default function Home() {
             className={`tab-btn ${activeTab === "federated" ? "active" : ""}`}
             onClick={() => setActiveTab("federated")}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0 }}>
               <circle cx="18" cy="5" r="3" />
               <circle cx="6" cy="12" r="3" />
               <circle cx="18" cy="19" r="3" />
               <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
               <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
             </svg>
-            Cleanroom Federated Mesh
+            <span>{"Cleanroom Mesh:\nFederated FedAvg"}</span>
           </button>
 
           <button
@@ -751,12 +755,12 @@ export default function Home() {
             className={`tab-btn ${activeTab === "benchmark" ? "active" : ""}`}
             onClick={() => setActiveTab("benchmark")}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0 }}>
               <path d="M18 20V10" />
               <path d="M12 20V4" />
               <path d="M6 20v-6" />
             </svg>
-            Defense Matrix vs. AstraGuard
+            <span>{"Defense Matrix:\nvs. AstraGuard"}</span>
           </button>
         </nav>
 
@@ -764,16 +768,16 @@ export default function Home() {
             TAB 1: MODULE A - DYNAMIC PART AVERAGE TESTING (DPAT) & CIRCULAR WAFER GDBN
             ========================================================================= */}
         {activeTab === "module_a" && (
-          <section className="section-grid-2">
-            {/* Left Column: Sliders & Statistical Checks */}
-            <div className="glass-panel" style={{ padding: "1.75rem" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.25rem" }}>
+          <section className="section-grid-3">
+            {/* Column 1: Sliders & Statistical Checks */}
+            <div className="glass-panel">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.6rem" }}>
                 <div>
-                  <h2 style={{ fontSize: "1.35rem", marginBottom: "0.25rem" }}>
+                  <h2 style={{ fontSize: "0.95rem", marginBottom: "0.15rem" }}>
                     Dynamic Outlier Screening (AEC-Q001)
                   </h2>
-                  <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)" }}>
-                    {activeFamily.name} • Standard: {activeFamily.standard}
+                  <p style={{ fontSize: "0.72rem", color: "var(--text-secondary)" }}>
+                    {activeFamily.name} • {activeFamily.standard}
                   </p>
                 </div>
                 <span className="telemetry-pill" style={{ background: "rgba(2, 132, 199, 0.08)" }}>
@@ -863,8 +867,8 @@ export default function Home() {
                 {/* Legacy Static */}
                 <div className="verdict-box static-fail">
                   <div className="verdict-header">
-                    <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--text-secondary)" }}>
-                      1. LEGACY STATIC SPEC (MIL-STD)
+                    <span style={{ fontSize: "0.66rem", fontWeight: 700, color: "var(--text-secondary)" }}>
+                      1. LEGACY STATIC (MIL-STD)
                     </span>
                     <span className="verdict-tag pass-escape">ESCAPE RISK</span>
                   </div>
@@ -872,17 +876,15 @@ export default function Home() {
                     {passesStatic ? "PASS (DEFECT ESCAPES)" : "REJECT"}
                   </div>
                   <p className="verdict-desc">
-                    {candidateVal} {activeFamily.unit} &le; {staticSpecLimit} {activeFamily.unit} spec limit.
-                    <br />
-                    <strong>Result:</strong> Defect escapes static screening into satellite flight payload!
+                    {candidateVal} &le; {staticSpecLimit} {activeFamily.unit}. Defect escapes into flight!
                   </p>
                 </div>
 
                 {/* Our Dynamic DPAT */}
                 <div className="verdict-box dpat-success">
                   <div className="verdict-header">
-                    <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--text-secondary)" }}>
-                      2. PARIKSHAN DYNAMIC DPAT
+                    <span style={{ fontSize: "0.66rem", fontWeight: 700, color: "var(--text-secondary)" }}>
+                      2. PARIKSHAN DPAT
                     </span>
                     <span className="verdict-tag reject-caught">DEFECT CAUGHT</span>
                   </div>
@@ -890,9 +892,7 @@ export default function Home() {
                     {passesDpat ? "PASS" : "REJECT (ISOLATED)"}
                   </div>
                   <p className="verdict-desc">
-                    DPAT Limit = {dpatUpperLimit} {activeFamily.unit} (Z = {candidateZScore > 0 ? `+${candidateZScore}` : candidateZScore}σ).
-                    <br />
-                    <strong>Result:</strong> Statistical outlier quarantined before mission launch!
+                    DPAT Limit = {dpatUpperLimit} {activeFamily.unit} (Z = {candidateZScore > 0 ? `+${candidateZScore}` : candidateZScore}σ). Quarantined!
                   </p>
                 </div>
               </div>
@@ -900,39 +900,39 @@ export default function Home() {
               {/* Tri-State Aerospace Decision Banner */}
               <div
                 style={{
-                  marginTop: "1.25rem",
-                  padding: "1rem",
-                  borderRadius: "var(--radius-md)",
+                  marginTop: "0.5rem",
+                  padding: "0.45rem 0.65rem",
+                  borderRadius: "var(--radius-sm)",
                   border: "1px solid",
                   borderColor: dispositionStatus === "FLIGHT_QUALIFIED" ? "var(--success-green)" : dispositionStatus === "LEVEL_2_EXTENDED_REVIEW" ? "var(--warning-amber)" : "var(--danger-red)",
                   background: dispositionStatus === "FLIGHT_QUALIFIED" ? "rgba(5, 150, 105, 0.08)" : dispositionStatus === "LEVEL_2_EXTENDED_REVIEW" ? "rgba(217, 119, 6, 0.08)" : "rgba(220, 38, 38, 0.08)"
                 }}
               >
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ fontWeight: 800, fontSize: "0.88rem" }}>
-                    {dispositionStatus === "FLIGHT_QUALIFIED" && "🟢 DISPOSITION: FLIGHT QUALIFIED (CLEARED)"}
-                    {dispositionStatus === "LEVEL_2_EXTENDED_REVIEW" && "🟡 DISPOSITION: LEVEL-2 EXTENDED 96h GATE REVIEW"}
-                    {dispositionStatus === "REJECT_EARLY_ABORT" && "🔴 DISPOSITION: 24h EARLY REJECT & HARDWARE EJECT"}
+                  <span style={{ fontWeight: 800, fontSize: "0.74rem" }}>
+                    {dispositionStatus === "FLIGHT_QUALIFIED" && "🟢 FLIGHT QUALIFIED"}
+                    {dispositionStatus === "LEVEL_2_EXTENDED_REVIEW" && "🟡 LEVEL-2 96h EXTENDED REVIEW"}
+                    {dispositionStatus === "REJECT_EARLY_ABORT" && "🔴 24h EARLY REJECT & EJECT"}
                   </span>
-                  <span className="mono" style={{ fontSize: "0.75rem", fontWeight: 700 }}>
+                  <span className="mono" style={{ fontSize: "0.68rem", fontWeight: 700 }}>
                     {dispositionStatus === "FLIGHT_QUALIFIED" ? "NPV: 99.74%" : "RISK MITIGATED"}
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Right Column: 200mm Circular Silicon Wafer & Spatial GDBN */}
-            <div className="glass-panel" style={{ padding: "1.75rem" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
-                <h2 style={{ fontSize: "1.35rem" }}>
+            {/* Column 2: 200mm Circular Silicon Wafer & Spatial GDBN */}
+            <div className="glass-panel">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.3rem" }}>
+                <h2 style={{ fontSize: "0.95rem" }}>
                   200mm Circular Silicon Wafer Map
                 </h2>
-                <span className="mono" style={{ fontSize: "0.8rem", color: "var(--primary-blue)", fontWeight: 700 }}>
+                <span className="mono" style={{ fontSize: "0.72rem", color: "var(--primary-blue)", fontWeight: 700 }}>
                   AEC-Q001 GDBN
                 </span>
               </div>
-              <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)", marginBottom: "1.25rem" }}>
-                Good-Die-Bad-Neighborhood (GDBN): Dies surrounded by failing neighbors inherit latent structural defects. Click any die to inspect.
+              <p style={{ fontSize: "0.70rem", color: "var(--text-secondary)", marginBottom: "0.4rem" }}>
+                Good-Die-Bad-Neighborhood (GDBN): Dies near defect clusters are quarantined. Click die to inspect.
               </p>
 
               {/* Realistic Circular Silicon Wafer */}
@@ -969,57 +969,172 @@ export default function Home() {
               </div>
 
               {/* Wafer Legend */}
-              <div style={{ display: "flex", gap: "1rem", marginTop: "1rem", fontSize: "0.75rem", flexWrap: "wrap", justifyContent: "center" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-                  <span style={{ width: 12, height: 12, borderRadius: 2, background: "rgba(5, 150, 105, 0.4)", border: "1px solid #059669" }} />
+              <div style={{ display: "flex", gap: "0.75rem", marginTop: "0.4rem", fontSize: "0.68rem", flexWrap: "wrap", justifyContent: "center" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
+                  <span style={{ width: 10, height: 10, borderRadius: 2, background: "rgba(5, 150, 105, 0.4)", border: "1px solid #059669" }} />
                   <span>Pass In-Spec</span>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-                  <span style={{ width: 12, height: 12, borderRadius: 2, background: "rgba(220, 38, 38, 0.5)", border: "1px solid #dc2626" }} />
-                  <span>DPAT Outlier (Die #27)</span>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
+                  <span style={{ width: 10, height: 10, borderRadius: 2, background: "rgba(220, 38, 38, 0.5)", border: "1px solid #dc2626" }} />
+                  <span>DPAT Outlier (#27)</span>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-                  <span style={{ width: 12, height: 12, borderRadius: 2, background: "rgba(217, 119, 6, 0.4)", border: "1px dashed #d97706" }} />
-                  <span>GDBN Spatial Risk (Die #28)</span>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
+                  <span style={{ width: 10, height: 10, borderRadius: 2, background: "rgba(217, 119, 6, 0.4)", border: "1px dashed #d97706" }} />
+                  <span>GDBN Risk (#28)</span>
                 </div>
               </div>
 
               {/* Selected Die Inspector Card */}
               <div
                 style={{
-                  marginTop: "1.25rem",
-                  padding: "1.1rem",
+                  marginTop: "0.5rem",
+                  padding: "0.5rem 0.65rem",
                   background: "var(--bg-inner)",
-                  borderRadius: "var(--radius-md)",
+                  borderRadius: "var(--radius-sm)",
                   border: "1px solid var(--border-subtle)",
-                  fontSize: "0.82rem"
+                  fontSize: "0.70rem"
                 }}
               >
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.4rem" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.2rem" }}>
                   <span style={{ fontWeight: 700, color: "var(--primary-blue)" }}>
-                    INSPECTION TELEMETRY: DIE #{selectedDieId}
+                    INSPECTION: DIE #{selectedDieId}
                   </span>
                   <span className="mono" style={{ fontWeight: 700 }}>
-                    STATUS: {selectedDieId === 27 ? "REJECT (DPAT OUTLIER)" : selectedDieId === 28 ? "QUARANTINE (GDBN)" : "QUALIFIED"}
+                    {selectedDieId === 27 ? "REJECT (DPAT)" : selectedDieId === 28 ? "QUARANTINE (GDBN)" : "QUALIFIED"}
                   </span>
                 </div>
-                <p style={{ color: "var(--text-secondary)", lineHeight: 1.5 }}>
+                <p style={{ color: "var(--text-secondary)", lineHeight: 1.35 }}>
                   {selectedDieId === 27 && (
                     <>
-                      <strong>Benchmark Anomaly:</strong> Measured value is <strong>45.0 {activeFamily.unit}</strong>. Passes static {staticSpecLimit} {activeFamily.unit} spec, but violates DPAT limit ({dpatUpperLimit} {activeFamily.unit}, Z=+14.0σ). Categorized as high-risk latent oxide defect.
+                      <strong>Benchmark Anomaly:</strong> Measured <strong>45.0 {activeFamily.unit}</strong>. Passes static {staticSpecLimit} spec, but violates DPAT ({dpatUpperLimit} {activeFamily.unit}, Z=+14.0σ). Latent oxide breakdown risk.
                     </>
                   )}
                   {selectedDieId === 28 && (
                     <>
-                      <strong>GDBN Spatial Anomaly:</strong> Measured value is in-spec (passes DPAT). However, <strong>4 adjacent neighbors failed</strong>. Quarantined per ECSS-Q-ST-60C space standard to prevent orbital latent failure.
+                      <strong>GDBN Spatial Risk:</strong> Measured in-spec, but <strong>4 adjacent neighbors failed</strong>. Quarantined per ECSS-Q-ST-60C to prevent orbital failure.
                     </>
                   )}
                   {selectedDieId !== 27 && selectedDieId !== 28 && (
                     <>
-                      Normal manufacturing variation within baseline lot statistics. Zero spatial clustering risk. Cleared for flight qualification.
+                      Normal lot variation. Zero spatial clustering risk. Flight cleared.
                     </>
                   )}
                 </p>
+              </div>
+            </div>
+
+            {/* Column 3: Live Chamber Telemetry & Fail-Safe Hardware Interlock Pod */}
+            <div className="glass-panel chamber-pod">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.25rem" }}>
+                <h2 style={{ fontSize: "0.95rem" }}>
+                  Chamber Telemetry & Safety
+                </h2>
+                <span className="mono" style={{ fontSize: "0.70rem", color: "var(--primary-blue)", fontWeight: 700 }}>
+                  ISRO SEC-QA
+                </span>
+              </div>
+              <p style={{ fontSize: "0.70rem", color: "var(--text-secondary)", marginBottom: "0.25rem" }}>
+                Real-time thermal oven vitals, VDD rail stability, and optocoupled relay status.
+              </p>
+
+              {/* Chamber Vitals Cards */}
+              <div className="chamber-metric-card">
+                <div className="chamber-metric-row">
+                  <span className="chamber-metric-label">MAX31855 Oven Temp:</span>
+                  <span className="chamber-metric-val" style={{ color: "var(--isro-orange)" }}>{chamberTemp}°C</span>
+                </div>
+                <div style={{ fontSize: "0.66rem", color: "var(--text-muted)" }}>Target: 125.0°C • High-Temp Soak</div>
+                <div className="chamber-bar-track">
+                  <div className="chamber-bar-fill" style={{ width: `${Math.min(100, (chamberTemp / 150) * 100)}%`, background: "var(--isro-orange)" }} />
+                </div>
+              </div>
+
+              <div className="chamber-metric-card">
+                <div className="chamber-metric-row">
+                  <span className="chamber-metric-label">INA219 VDD Rail:</span>
+                  <span className="chamber-metric-val" style={{ color: "var(--primary-blue)" }}>{railVoltage} V</span>
+                </div>
+                <div style={{ fontSize: "0.66rem", color: "var(--text-muted)" }}>Auto-Zero Shunt (25 ppm/°C comp)</div>
+                <div className="chamber-bar-track">
+                  <div className="chamber-bar-fill" style={{ width: `${Math.min(100, (railVoltage / 5.0) * 100)}%`, background: "var(--primary-blue)" }} />
+                </div>
+              </div>
+
+              <div className="chamber-metric-card">
+                <div className="chamber-metric-row">
+                  <span className="chamber-metric-label">Live {activeFamily.monitored_param.split(" ")[0]}:</span>
+                  <span className="chamber-metric-val" style={{ color: liveCurrent > dpatUpperLimit ? "var(--danger-red)" : "var(--success-green)" }}>
+                    {liveCurrent} {activeFamily.unit}
+                  </span>
+                </div>
+                <div style={{ fontSize: "0.66rem", color: "var(--text-muted)" }}>
+                  Thermal Acceleration AF = {physicsResults.afThermal}× (at {chamberTemp}°C)
+                </div>
+              </div>
+
+              {/* Fail-Safe Relay Interlock */}
+              <div className="relay-quick-card">
+                <div className="relay-quick-status-row">
+                  <span style={{ fontSize: "0.70rem", fontWeight: 700 }}>
+                    GPIO 17 RELAY:
+                  </span>
+                  <span
+                    className="mono"
+                    style={{
+                      fontWeight: 800,
+                      fontSize: "0.72rem",
+                      color: relayState === "CLOSED_POWER_ON" ? "var(--success-green)" : "var(--danger-red)"
+                    }}
+                  >
+                    {relayState === "CLOSED_POWER_ON" ? "CLOSED (POWER ON)" : "OPEN (CUTOFF)"}
+                  </span>
+                </div>
+                <div style={{ fontSize: "0.66rem", color: "var(--text-secondary)" }}>
+                  {relayState === "CLOSED_POWER_ON"
+                    ? "Optocoupled switch active (<12 ms cutoff)"
+                    : relayTripReason || "Power physically cut by fail-safe relay"}
+                </div>
+                {relayState === "CLOSED_POWER_ON" ? (
+                  <button
+                    className="quick-action-btn trip"
+                    onClick={() => handleTripRelay("Manual Safety Cutoff from Mission Console")}
+                  >
+                    🔴 TRIP RELAY (CUT POWER)
+                  </button>
+                ) : (
+                  <button
+                    className="quick-action-btn reset"
+                    onClick={handleResetRelay}
+                  >
+                    🟢 RESET RELAY (RESTORE POWER)
+                  </button>
+                )}
+              </div>
+
+              {/* Flight Conformance Quick Stamp */}
+              <div
+                style={{
+                  background: "var(--bg-inner)",
+                  border: "1px solid var(--border-subtle)",
+                  borderRadius: "var(--radius-sm)",
+                  padding: "0.45rem 0.6rem",
+                  fontSize: "0.68rem"
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.15rem" }}>
+                  <span style={{ fontWeight: 700, color: "var(--text-muted)" }}>LOT STATUS:</span>
+                  <span className="mono" style={{ fontWeight: 700, color: "var(--success-green)" }}>LOT-GEO-2026-A</span>
+                </div>
+                <div style={{ color: "var(--text-secondary)", lineHeight: 1.3 }}>
+                  Conformal Bound: <strong>&le; 0.01% escapes</strong> • SHA-256 Digest Active
+                </div>
+                <button
+                  className="stream-btn"
+                  style={{ width: "100%", justifyContent: "center", marginTop: "0.3rem", fontSize: "0.68rem", padding: "0.22rem 0.45rem" }}
+                  onClick={() => setActiveTab("explainability")}
+                >
+                  📜 VIEW AS9100 CERTIFICATE
+                </button>
               </div>
             </div>
           </section>
@@ -1029,22 +1144,22 @@ export default function Home() {
             TAB 2: MODULE B - PHYSICS CONSTRAINTS & CONFORMAL DRIFT PREDICTION
             ========================================================================= */}
         {activeTab === "module_b" && (
-          <section className="section-grid-2">
-            {/* Left Column: Physics Parameters & Equation */}
-            <div className="glass-panel" style={{ padding: "1.75rem" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.25rem" }}>
+          <section className="section-grid-3">
+            {/* Column 1: Physics Parameters & Equation */}
+            <div className="glass-panel">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.6rem" }}>
                 <div>
-                  <h2 style={{ fontSize: "1.35rem", marginBottom: "0.25rem" }}>
+                  <h2 style={{ fontSize: "0.95rem", marginBottom: "0.15rem" }}>
                     Physics-Informed Drift Predictor
                   </h2>
-                  <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)" }}>
+                  <p style={{ fontSize: "0.72rem", color: "var(--text-secondary)" }}>
                     Arrhenius Activation Ea = {activeFamily.ea_ev} eV • Conformal 99.9% Bound
                   </p>
                 </div>
                 <span className="telemetry-pill" style={{ background: "rgba(234, 88, 12, 0.08)" }}>
                   <span className="label">MODEL:</span>
                   <span className="val" style={{ color: "var(--isro-orange)" }}>
-                    {pythonDriftResult ? "PYTHON PINN (LIVE)" : "PINN XGBoost"}
+                    {pythonDriftResult ? "PYTHON PINN" : "PINN XGBoost"}
                   </span>
                 </span>
               </div>
@@ -1106,29 +1221,29 @@ export default function Home() {
               <div
                 style={{
                   background: "var(--bg-inner)",
-                  padding: "1.25rem",
-                  borderRadius: "var(--radius-md)",
+                  padding: "0.55rem 0.65rem",
+                  borderRadius: "var(--radius-sm)",
                   border: "1px solid var(--border-subtle)",
-                  marginTop: "1.5rem"
+                  marginTop: "0.5rem"
                 }}
               >
-                <div style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--primary-blue)", marginBottom: "0.6rem" }}>
+                <div style={{ fontSize: "0.68rem", fontWeight: 700, color: "var(--primary-blue)", marginBottom: "0.3rem" }}>
                   PHYSICAL DEGRADATION LAW ({activeFamily.name.toUpperCase()})
                 </div>
-                <code className="mono" style={{ display: "block", fontSize: "0.78rem", marginBottom: "0.85rem", color: "var(--isro-orange)" }}>
+                <code className="mono" style={{ display: "block", fontSize: "0.66rem", marginBottom: "0.4rem", color: "var(--isro-orange)", wordBreak: "break-all" }}>
                   {activeFamily.physics_equation}
                 </code>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem", fontSize: "0.8rem" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.4rem", fontSize: "0.68rem" }}>
                   <div>
-                    <span style={{ color: "var(--text-muted)" }}>Arrhenius Factor (AF_T):</span>
-                    <div className="mono" style={{ fontWeight: 700, fontSize: "1rem" }}>
-                      {physicsResults.afThermal}× (at 125°C)
+                    <span style={{ color: "var(--text-muted)" }}>Arrhenius Factor:</span>
+                    <div className="mono" style={{ fontWeight: 700, fontSize: "0.85rem" }}>
+                      {physicsResults.afThermal}× (125°C)
                     </div>
                   </div>
                   <div>
-                    <span style={{ color: "var(--text-muted)" }}>Electromigration Factor:</span>
-                    <div className="mono" style={{ fontWeight: 700, fontSize: "1rem" }}>
-                      {physicsResults.afEm}× (at 3.6V)
+                    <span style={{ color: "var(--text-muted)" }}>Electromigration:</span>
+                    <div className="mono" style={{ fontWeight: 700, fontSize: "0.85rem" }}>
+                      {physicsResults.afEm}× (3.6V)
                     </div>
                   </div>
                   <div>
@@ -1138,7 +1253,7 @@ export default function Home() {
                     </div>
                   </div>
                   <div>
-                    <span style={{ color: "var(--text-muted)" }}>Critical Slope Limit:</span>
+                    <span style={{ color: "var(--text-muted)" }}>Critical Slope:</span>
                     <div className="mono" style={{ fontWeight: 700, color: "var(--warning-amber)" }}>
                       {physicsResults.kCritical} {activeFamily.unit}/h
                     </div>
@@ -1147,11 +1262,11 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right Column: 168h Trajectory Visualizer with 99.9% Conformal Cone */}
-            <div className="glass-panel" style={{ padding: "1.75rem" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
-                <h2 style={{ fontSize: "1.35rem" }}>
-                  168h Trajectory & Conformal Risk Cone
+            {/* Column 2: 168h Trajectory Visualizer with 99.9% Conformal Cone */}
+            <div className="glass-panel">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.3rem" }}>
+                <h2 style={{ fontSize: "0.95rem" }}>
+                  168h Trajectory & Conformal Cone
                 </h2>
                 <span
                   className="verdict-tag"
@@ -1160,11 +1275,11 @@ export default function Home() {
                     color: physicsResults.earlyAbort ? "var(--danger-red)" : "var(--success-green)"
                   }}
                 >
-                  {physicsResults.earlyAbort ? "EARLY ABORT AT 24H" : "QUALIFIED TRAJECTORY"}
+                  {physicsResults.earlyAbort ? "EARLY ABORT (24H)" : "QUALIFIED"}
                 </span>
               </div>
-              <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)", marginBottom: "1rem" }}>
-                L1-MAE XGBoost regression + Split Conformal 99.9% confidence interval (False Negative Escape rate &le; 0.01%).
+              <p style={{ fontSize: "0.70rem", color: "var(--text-secondary)", marginBottom: "0.5rem" }}>
+                L1-MAE XGBoost + Split Conformal 99.9% bound (False Negative &le; 0.01%).
               </p>
 
               {/* Trajectory Display SVG */}
@@ -1172,73 +1287,73 @@ export default function Home() {
                 style={{
                   background: "var(--bg-inner)",
                   border: "1px solid var(--border-subtle)",
-                  borderRadius: "var(--radius-md)",
-                  padding: "1.25rem",
-                  marginBottom: "1.25rem"
+                  borderRadius: "var(--radius-sm)",
+                  padding: "0.6rem",
+                  marginBottom: "0.5rem"
                 }}
               >
-                <svg viewBox="0 0 500 220" style={{ width: "100%", height: "auto", overflow: "visible" }}>
+                <svg viewBox="0 0 500 180" style={{ width: "100%", height: "auto", overflow: "visible" }}>
                   <line x1="50" y1="20" x2="480" y2="20" stroke="var(--border-subtle)" strokeDasharray="3 3" />
-                  <line x1="50" y1="80" x2="480" y2="80" stroke="var(--border-subtle)" strokeDasharray="3 3" />
-                  <line x1="50" y1="140" x2="480" y2="140" stroke="var(--border-subtle)" strokeDasharray="3 3" />
-                  <line x1="50" y1="190" x2="480" y2="190" stroke="var(--text-muted)" strokeWidth="1.5" />
+                  <line x1="50" y1="70" x2="480" y2="70" stroke="var(--border-subtle)" strokeDasharray="3 3" />
+                  <line x1="50" y1="120" x2="480" y2="120" stroke="var(--border-subtle)" strokeDasharray="3 3" />
+                  <line x1="50" y1="160" x2="480" y2="160" stroke="var(--text-muted)" strokeWidth="1.5" />
 
                   {/* Safety Limit */}
-                  <line x1="50" y1="65" x2="480" y2="65" stroke="var(--danger-red)" strokeWidth="1.5" strokeDasharray="5 5" />
-                  <text x="485" y="68" fill="var(--danger-red)" fontSize="10" fontFamily="monospace" fontWeight="600">
-                    SPEC CEILING ({safetyLimit168h}{activeFamily.unit})
+                  <line x1="50" y1="55" x2="480" y2="55" stroke="var(--danger-red)" strokeWidth="1.5" strokeDasharray="5 5" />
+                  <text x="485" y="58" fill="var(--danger-red)" fontSize="9" fontFamily="monospace" fontWeight="600">
+                    SPEC LIMIT ({safetyLimit168h}{activeFamily.unit})
                   </text>
 
-                  <text x="50" y="208" fill="var(--text-muted)" fontSize="11" textAnchor="middle" fontFamily="monospace">0h</text>
-                  <text x="120" y="208" fill="var(--primary-blue)" fontSize="11" textAnchor="middle" fontFamily="monospace" fontWeight="700">24h (TEST)</text>
-                  <text x="280" y="208" fill="var(--text-muted)" fontSize="11" textAnchor="middle" fontFamily="monospace">96h</text>
-                  <text x="460" y="208" fill="var(--isro-orange)" fontSize="11" textAnchor="middle" fontFamily="monospace" fontWeight="700">168h (END)</text>
+                  <text x="50" y="174" fill="var(--text-muted)" fontSize="10" textAnchor="middle" fontFamily="monospace">0h</text>
+                  <text x="120" y="174" fill="var(--primary-blue)" fontSize="10" textAnchor="middle" fontFamily="monospace" fontWeight="700">24h</text>
+                  <text x="280" y="174" fill="var(--text-muted)" fontSize="10" textAnchor="middle" fontFamily="monospace">96h</text>
+                  <text x="460" y="174" fill="var(--isro-orange)" fontSize="10" textAnchor="middle" fontFamily="monospace" fontWeight="700">168h</text>
 
                   {(() => {
-                    const y0 = Math.max(20, 190 - (val0h / (safetyLimit168h * 1.3)) * 150);
-                    const y24 = Math.max(20, 190 - (val24h / (safetyLimit168h * 1.3)) * 150);
-                    const y96 = Math.max(20, 190 - (physicsResults.pred96h / (safetyLimit168h * 1.3)) * 150);
-                    const y168 = Math.max(20, 190 - (physicsResults.pred168h / (safetyLimit168h * 1.3)) * 150);
-                    const yConfUpper = Math.max(15, 190 - (physicsResults.confUpper99 / (safetyLimit168h * 1.3)) * 150);
-                    const yConfLower = Math.max(25, 190 - (physicsResults.confLower99 / (safetyLimit168h * 1.3)) * 150);
+                    const y0 = Math.max(20, 160 - (val0h / (safetyLimit168h * 1.3)) * 130);
+                    const y24 = Math.max(20, 160 - (val24h / (safetyLimit168h * 1.3)) * 130);
+                    const y96 = Math.max(20, 160 - (physicsResults.pred96h / (safetyLimit168h * 1.3)) * 130);
+                    const y168 = Math.max(20, 160 - (physicsResults.pred168h / (safetyLimit168h * 1.3)) * 130);
+                    const yConfUpper = Math.max(15, 160 - (physicsResults.confUpper99 / (safetyLimit168h * 1.3)) * 130);
+                    const yConfLower = Math.max(25, 160 - (physicsResults.confLower99 / (safetyLimit168h * 1.3)) * 130);
 
                     return (
                       <g>
                         {/* Shaded 99.9% Conformal Prediction Cone */}
                         <polygon
-                          points={`120,${y24} 280,${y96 - 8} 460,${yConfUpper} 460,${yConfLower} 280,${y96 + 8}`}
+                          points={`120,${y24} 280,${y96 - 6} 460,${yConfUpper} 460,${yConfLower} 280,${y96 + 6}`}
                           fill="rgba(0, 240, 255, 0.15)"
                           stroke="rgba(0, 240, 255, 0.4)"
                           strokeDasharray="2 2"
                         />
 
                         {/* Measured Segment (0h to 24h) */}
-                        <line x1="50" y1={y0} x2="120" y2={y24} stroke="var(--primary-blue)" strokeWidth="3.5" />
+                        <line x1="50" y1={y0} x2="120" y2={y24} stroke="var(--primary-blue)" strokeWidth="3" />
 
                         {/* Forecasted Trajectory Segment (24h to 168h) */}
                         <path
                           d={`M 120 ${y24} Q 280 ${y96} 460 ${y168}`}
                           fill="none"
                           stroke="var(--isro-orange)"
-                          strokeWidth="2.5"
-                          strokeDasharray="6 4"
+                          strokeWidth="2"
+                          strokeDasharray="5 3"
                         />
 
-                        <circle cx="50" cy={y0} r="4" fill="var(--primary-blue)" />
-                        <circle cx="120" cy={y24} r="5" fill="var(--primary-blue)" />
-                        <circle cx="280" cy={y96} r="4" fill="var(--isro-orange)" />
+                        <circle cx="50" cy={y0} r="3.5" fill="var(--primary-blue)" />
+                        <circle cx="120" cy={y24} r="4.5" fill="var(--primary-blue)" />
+                        <circle cx="280" cy={y96} r="3.5" fill="var(--isro-orange)" />
                         <circle
                           cx="460"
                           cy={y168}
-                          r="6"
+                          r="5"
                           fill={physicsResults.earlyAbort ? "var(--danger-red)" : "var(--success-green)"}
                         />
 
                         <text
                           x="460"
-                          y={y168 - 12}
+                          y={y168 - 10}
                           fill={physicsResults.earlyAbort ? "var(--danger-red)" : "var(--success-green)"}
-                          fontSize="11"
+                          fontSize="10"
                           fontWeight="bold"
                           textAnchor="middle"
                           fontFamily="monospace"
@@ -1256,45 +1371,158 @@ export default function Home() {
                 style={{
                   background: physicsResults.earlyAbort ? "rgba(220, 38, 38, 0.08)" : "rgba(5, 150, 105, 0.08)",
                   border: `1px solid ${physicsResults.earlyAbort ? "var(--danger-red)" : "var(--success-green)"}`,
-                  borderRadius: "var(--radius-md)",
-                  padding: "1.25rem"
+                  borderRadius: "var(--radius-sm)",
+                  padding: "0.55rem 0.75rem"
                 }}
               >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
-                  <span style={{ fontWeight: 800, fontSize: "0.92rem", color: physicsResults.earlyAbort ? "var(--danger-red)" : "var(--success-green)" }}>
-                    {physicsResults.earlyAbort ? "🚨 24H EARLY QUALIFICATION ABORT TRIGGERED" : "✅ COMPONENT WITHIN SAFE DRIFT BOUNDS"}
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.25rem" }}>
+                  <span style={{ fontWeight: 800, fontSize: "0.75rem", color: physicsResults.earlyAbort ? "var(--danger-red)" : "var(--success-green)" }}>
+                    {physicsResults.earlyAbort ? "🚨 24H EARLY ABORT TRIGGERED" : "✅ SAFE DRIFT BOUNDS"}
                   </span>
-                  <span className="mono" style={{ fontWeight: 700, color: "var(--primary-blue)" }}>
-                    SAVINGS: {physicsResults.hoursSaved} HOURS
+                  <span className="mono" style={{ fontWeight: 700, fontSize: "0.72rem", color: "var(--primary-blue)" }}>
+                    SAVINGS: {physicsResults.hoursSaved}h (-85.7%)
                   </span>
                 </div>
-                <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>
+                <p style={{ fontSize: "0.68rem", color: "var(--text-secondary)", lineHeight: 1.3 }}>
                   {physicsResults.earlyAbort ? (
                     <>
-                      Predicted 168h drift ({physicsResults.pred168h} {activeFamily.unit}) or 99.9% Conformal Bound ({physicsResults.confUpper99} {activeFamily.unit}) exceeds permissible ceiling ({safetyLimit168h} {activeFamily.unit}).
-                      <br />
-                      <strong>Early Abort Action:</strong> Burn-in halted at 24 hours. Prevents 144 hours of unnecessary chamber power, heating, and liquid nitrogen purge (<strong>85.7% energy saved</strong>).
+                      Predicted drift ({physicsResults.pred168h} {activeFamily.unit}) or Conformal UCL ({physicsResults.confUpper99} {activeFamily.unit}) exceeds limit ({safetyLimit168h} {activeFamily.unit}). Burn-in aborted at 24h (<strong>85.7% power & liquid N2 saved</strong>).
                     </>
                   ) : (
                     <>
-                      Degradation trajectory remains strictly within the Arrhenius physical boundary. 99.9% Conformal Bound ({physicsResults.confUpper99} {activeFamily.unit}) remains safely under the {safetyLimit168h} {activeFamily.unit} ceiling.
+                      Degradation curve conforms to Arrhenius boundary. Conformal Bound ({physicsResults.confUpper99} {activeFamily.unit}) safely below spec.
                     </>
                   )}
                 </p>
 
                 {physicsResults.earlyAbort && relayState === "CLOSED_POWER_ON" && (
                   <button
-                    className="relay-btn trip"
-                    style={{ marginTop: "1rem", padding: "0.6rem 1.25rem", fontSize: "0.88rem" }}
+                    className="quick-action-btn trip"
+                    style={{ marginTop: "0.4rem" }}
                     onClick={() =>
                       handleTripRelay(
                         `Module B Early Abort: Predicted 168h drift ${physicsResults.pred168h}${activeFamily.unit} exceeds ${safetyLimit168h}${activeFamily.unit}`
                       )
                     }
                   >
-                    TRIGGER IMMEDIATE 24H RELAY CUTOFF
+                    🔴 TRIGGER IMMEDIATE 24H RELAY CUTOFF
                   </button>
                 )}
+              </div>
+            </div>
+
+            {/* Column 3: Cleanroom Chamber Telemetry & Hardware Safety Pod */}
+            <div className="glass-panel chamber-pod">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.25rem" }}>
+                <h2 style={{ fontSize: "0.95rem" }}>
+                  Chamber Telemetry & Safety
+                </h2>
+                <span className="mono" style={{ fontSize: "0.70rem", color: "var(--primary-blue)", fontWeight: 700 }}>
+                  ISRO SEC-QA
+                </span>
+              </div>
+              <p style={{ fontSize: "0.70rem", color: "var(--text-secondary)", marginBottom: "0.25rem" }}>
+                Real-time thermal oven vitals, VDD rail stability, and optocoupled relay status.
+              </p>
+
+              {/* Chamber Vitals Cards */}
+              <div className="chamber-metric-card">
+                <div className="chamber-metric-row">
+                  <span className="chamber-metric-label">MAX31855 Oven Temp:</span>
+                  <span className="chamber-metric-val" style={{ color: "var(--isro-orange)" }}>{chamberTemp}°C</span>
+                </div>
+                <div style={{ fontSize: "0.66rem", color: "var(--text-muted)" }}>Target: 125.0°C • High-Temp Soak</div>
+                <div className="chamber-bar-track">
+                  <div className="chamber-bar-fill" style={{ width: `${Math.min(100, (chamberTemp / 150) * 100)}%`, background: "var(--isro-orange)" }} />
+                </div>
+              </div>
+
+              <div className="chamber-metric-card">
+                <div className="chamber-metric-row">
+                  <span className="chamber-metric-label">INA219 VDD Rail:</span>
+                  <span className="chamber-metric-val" style={{ color: "var(--primary-blue)" }}>{railVoltage} V</span>
+                </div>
+                <div style={{ fontSize: "0.66rem", color: "var(--text-muted)" }}>Auto-Zero Shunt (25 ppm/°C comp)</div>
+                <div className="chamber-bar-track">
+                  <div className="chamber-bar-fill" style={{ width: `${Math.min(100, (railVoltage / 5.0) * 100)}%`, background: "var(--primary-blue)" }} />
+                </div>
+              </div>
+
+              <div className="chamber-metric-card">
+                <div className="chamber-metric-row">
+                  <span className="chamber-metric-label">Conformal UCL (168h):</span>
+                  <span className="chamber-metric-val" style={{ color: physicsResults.earlyAbort ? "var(--danger-red)" : "var(--success-green)" }}>
+                    {physicsResults.confUpper99} {activeFamily.unit}
+                  </span>
+                </div>
+                <div style={{ fontSize: "0.66rem", color: "var(--text-muted)" }}>
+                  Mathematical coverage: 99.9% (Escape rate &le; 0.01%)
+                </div>
+              </div>
+
+              {/* Fail-Safe Relay Interlock */}
+              <div className="relay-quick-card">
+                <div className="relay-quick-status-row">
+                  <span style={{ fontSize: "0.70rem", fontWeight: 700 }}>
+                    GPIO 17 RELAY:
+                  </span>
+                  <span
+                    className="mono"
+                    style={{
+                      fontWeight: 800,
+                      fontSize: "0.72rem",
+                      color: relayState === "CLOSED_POWER_ON" ? "var(--success-green)" : "var(--danger-red)"
+                    }}
+                  >
+                    {relayState === "CLOSED_POWER_ON" ? "CLOSED (POWER ON)" : "OPEN (CUTOFF)"}
+                  </span>
+                </div>
+                <div style={{ fontSize: "0.66rem", color: "var(--text-secondary)" }}>
+                  {relayState === "CLOSED_POWER_ON"
+                    ? "Active-low optocoupler armed (<12 ms cutoff)"
+                    : relayTripReason || "Power cut by fail-safe relay"}
+                </div>
+                {relayState === "CLOSED_POWER_ON" ? (
+                  <button
+                    className="quick-action-btn trip"
+                    onClick={() => handleTripRelay("Manual Safety Cutoff from Mission Console")}
+                  >
+                    🔴 TRIP RELAY (CUT POWER)
+                  </button>
+                ) : (
+                  <button
+                    className="quick-action-btn reset"
+                    onClick={handleResetRelay}
+                  >
+                    🟢 RESET RELAY (RESTORE POWER)
+                  </button>
+                )}
+              </div>
+
+              {/* Flight Conformance Quick Stamp */}
+              <div
+                style={{
+                  background: "var(--bg-inner)",
+                  border: "1px solid var(--border-subtle)",
+                  borderRadius: "var(--radius-sm)",
+                  padding: "0.45rem 0.6rem",
+                  fontSize: "0.68rem"
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.15rem" }}>
+                  <span style={{ fontWeight: 700, color: "var(--text-muted)" }}>EARLY ABORT GAIN:</span>
+                  <span className="mono" style={{ fontWeight: 700, color: "var(--isro-orange)" }}>144h SAVED</span>
+                </div>
+                <div style={{ color: "var(--text-secondary)", lineHeight: 1.3 }}>
+                  Slashing burn-in from 168h to 24h saves <strong>85.7% power & liquid N2</strong>.
+                </div>
+                <button
+                  className="stream-btn"
+                  style={{ width: "100%", justifyContent: "center", marginTop: "0.3rem", fontSize: "0.68rem", padding: "0.22rem 0.45rem" }}
+                  onClick={() => setActiveTab("explainability")}
+                >
+                  📜 VIEW AS9100 CERTIFICATE
+                </button>
               </div>
             </div>
           </section>
@@ -1304,13 +1532,13 @@ export default function Home() {
             TAB 3: ATE HIGH-SPEED STREAM & BENCHMARK INGESTION ENGINE
             ========================================================================= */}
         {activeTab === "ate_stream" && (
-          <section className="glass-panel" style={{ padding: "2rem" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.25rem", flexWrap: "wrap", gap: "1rem" }}>
+          <section className="glass-panel" style={{ padding: "1rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.75rem", flexWrap: "wrap", gap: "0.75rem" }}>
               <div>
-                <h2 style={{ fontSize: "1.45rem", marginBottom: "0.25rem" }}>
+                <h2 style={{ fontSize: "1.1rem", marginBottom: "0.15rem" }}>
                   Automated Test Equipment (ATE) High-Speed Ingestion
                 </h2>
-                <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)" }}>
+                <p style={{ fontSize: "0.72rem", color: "var(--text-secondary)" }}>
                   Real-time multi-channel wafer prober telemetry ingestion (250 dies/s) with dynamic hardware bin sorting.
                 </p>
               </div>
@@ -1343,8 +1571,8 @@ export default function Home() {
             </div>
 
             {/* 1-Click Load Benchmarks Toolbar */}
-            <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap", marginBottom: "1.5rem" }}>
-              <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-muted)", alignSelf: "center" }}>
+            <div style={{ display: "flex", gap: "0.45rem", flexWrap: "wrap", marginBottom: "0.75rem" }}>
+              <span style={{ fontSize: "0.70rem", fontWeight: 700, color: "var(--text-muted)", alignSelf: "center" }}>
                 LOAD REAL BENCHMARKS:
               </span>
               <button
@@ -1462,48 +1690,50 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Live Streaming Log Table */}
-            <h3 style={{ fontSize: "1.1rem", marginBottom: "0.75rem" }}>
+            {/* Live Streaming Log Table with Scrollable Single-Screen Viewport */}
+            <h3 style={{ fontSize: "0.92rem", marginBottom: "0.4rem" }}>
               In-Situ ATE Tester Socket Telemetry Log
             </h3>
-            <table className="benchmark-table">
-              <thead>
-                <tr>
-                  <th>Timestamp</th>
-                  <th>Die Serial ID</th>
-                  <th>Measured Parameter</th>
-                  <th>Intra-Lot Z-Score</th>
-                  <th>Hardware Bin Assigned</th>
-                  <th>Disposition Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {ateStreamLogs.length === 0 ? (
+            <div className="table-scroll-container">
+              <table className="benchmark-table">
+                <thead>
                   <tr>
-                    <td colSpan={6} style={{ textAlign: "center", color: "var(--text-muted)", padding: "2rem" }}>
-                      ATE stream idle. Click &quot;START ATE PROBER&quot; to begin high-speed automated die sorting.
-                    </td>
+                    <th>Timestamp</th>
+                    <th>Die Serial ID</th>
+                    <th>Measured Parameter</th>
+                    <th>Intra-Lot Z-Score</th>
+                    <th>Hardware Bin Assigned</th>
+                    <th>Disposition Action</th>
                   </tr>
-                ) : (
-                  ateStreamLogs.map((log) => (
-                    <tr key={log.id}>
-                      <td className="mono">{log.timestamp}</td>
-                      <td className="mono" style={{ fontWeight: 700 }}>DIE-SN-{log.id}</td>
-                      <td>{log.val} {activeFamily.unit}</td>
-                      <td className="mono">{log.val > lotMean + 2 * lotStd ? "+3.8σ" : "+0.4σ"}</td>
-                      <td>
-                        <span className="mono" style={{ fontWeight: 700, color: log.logColor }}>
-                          {log.binCode}
-                        </span>
-                      </td>
-                      <td style={{ color: log.logColor, fontWeight: 700 }}>
-                        {log.label}
+                </thead>
+                <tbody>
+                  {ateStreamLogs.length === 0 ? (
+                    <tr>
+                      <td colSpan={6} style={{ textAlign: "center", color: "var(--text-muted)", padding: "1.5rem" }}>
+                        ATE stream idle. Click &quot;START ATE PROBER&quot; to begin high-speed automated die sorting.
                       </td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+                  ) : (
+                    ateStreamLogs.map((log) => (
+                      <tr key={log.id}>
+                        <td className="mono">{log.timestamp}</td>
+                        <td className="mono" style={{ fontWeight: 700 }}>DIE-SN-{log.id}</td>
+                        <td>{log.val} {activeFamily.unit}</td>
+                        <td className="mono">{log.val > lotMean + 2 * lotStd ? "+3.8σ" : "+0.4σ"}</td>
+                        <td>
+                          <span className="mono" style={{ fontWeight: 700, color: log.logColor }}>
+                            {log.binCode}
+                          </span>
+                        </td>
+                        <td style={{ color: log.logColor, fontWeight: 700 }}>
+                          {log.label}
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
           </section>
         )}
 
@@ -1513,13 +1743,13 @@ export default function Home() {
         {activeTab === "explainability" && (
           <section className="section-grid-2">
             {/* TreeSHAP Feature Attribution */}
-            <div className="glass-panel" style={{ padding: "1.75rem" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.25rem" }}>
+            <div className="glass-panel">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.75rem" }}>
                 <div>
-                  <h2 style={{ fontSize: "1.35rem", marginBottom: "0.25rem" }}>
+                  <h2 style={{ fontSize: "1.05rem", marginBottom: "0.15rem" }}>
                     TreeSHAP Root-Cause Attribution
                   </h2>
-                  <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)" }}>
+                  <p style={{ fontSize: "0.72rem", color: "var(--text-secondary)" }}>
                     Physical attribution waterfall justifying screening decisions to aerospace QA inspectors.
                   </p>
                 </div>
@@ -1530,7 +1760,7 @@ export default function Home() {
               </div>
 
               {/* Waterfall Rows */}
-              <div style={{ marginTop: "1.5rem" }}>
+              <div style={{ marginTop: "0.75rem" }}>
                 <div className="shap-bar-row">
                   <span className="shap-label">Baseline Lot Center</span>
                   <div className="shap-bar-track">
@@ -1582,12 +1812,12 @@ export default function Home() {
                 style={{
                   background: "var(--bg-inner)",
                   border: "1px solid var(--border-subtle)",
-                  borderRadius: "var(--radius-md)",
-                  padding: "1.25rem",
-                  marginTop: "1.75rem"
+                  borderRadius: "var(--radius-sm)",
+                  padding: "0.65rem 0.75rem",
+                  marginTop: "0.75rem"
                 }}
               >
-                <div style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--primary-blue)", marginBottom: "0.5rem" }}>
+                <div style={{ fontSize: "0.72rem", fontWeight: 700, color: "var(--primary-blue)", marginBottom: "0.3rem" }}>
                   TRANSPARENT SURROGATE DECISION RULE (MIL-STD-883)
                 </div>
                 <code
@@ -1596,10 +1826,10 @@ export default function Home() {
                     display: "block",
                     background: "var(--bg-card)",
                     border: "1px solid var(--border-subtle)",
-                    padding: "0.85rem",
+                    padding: "0.55rem",
                     borderRadius: "var(--radius-sm)",
-                    fontSize: "0.82rem",
-                    lineHeight: 1.6
+                    fontSize: "0.70rem",
+                    lineHeight: 1.5
                   }}
                 >
                   <span style={{ color: "var(--isro-orange)", fontWeight: 700 }}>IF</span> [Early_Drift_Velocity &gt; {physicsResults.kCritical} {activeFamily.unit}/h]
@@ -1616,19 +1846,19 @@ export default function Home() {
             </div>
 
             {/* QA Digital Flight Clearance Certificate */}
-            <div className="glass-panel" style={{ padding: "1.75rem" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem", flexWrap: "wrap", gap: "0.5rem" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            <div className="glass-panel">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.6rem", flexWrap: "wrap", gap: "0.5rem" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
                   <img
                     src="/parikshan_logo.png"
                     alt="PARIKSHAN-AI Logo"
-                    style={{ width: "48px", height: "24px", objectFit: "contain" }}
+                    style={{ width: "36px", height: "18px", objectFit: "contain" }}
                   />
                   <div>
-                    <h2 style={{ fontSize: "1.25rem", margin: 0 }}>
+                    <h2 style={{ fontSize: "1.05rem", margin: 0 }}>
                       PARIKSHAN Digital Birth Certificate
                     </h2>
-                    <span style={{ fontSize: "0.72rem", color: "var(--primary-blue)", fontFamily: "var(--font-mono)" }}>
+                    <span style={{ fontSize: "0.66rem", color: "var(--primary-blue)", fontFamily: "var(--font-mono)" }}>
                       AS9100 REV D / MIL-STD-883 SPACE CONFORMANCE
                     </span>
                   </div>
@@ -1639,25 +1869,25 @@ export default function Home() {
               <div
                 style={{
                   border: "1px dashed var(--border-subtle)",
-                  borderRadius: "var(--radius-md)",
-                  padding: "1.5rem",
+                  borderRadius: "var(--radius-sm)",
+                  padding: "0.75rem 1rem",
                   background: "var(--bg-inner)"
                 }}
               >
-                <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid var(--border-subtle)", paddingBottom: "0.75rem", marginBottom: "1rem" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid var(--border-subtle)", paddingBottom: "0.4rem", marginBottom: "0.6rem" }}>
                   <div>
-                    <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>CERTIFICATE NO:</div>
-                    <div className="mono" style={{ fontWeight: 700, color: "var(--primary-blue)" }}>
+                    <div style={{ fontSize: "0.66rem", color: "var(--text-muted)" }}>CERTIFICATE NO:</div>
+                    <div className="mono" style={{ fontWeight: 700, color: "var(--primary-blue)", fontSize: "0.72rem" }}>
                       PARIKSHAN-QA-2026-X88-0027
                     </div>
                   </div>
                   <div>
-                    <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>QUALIFICATION LOT:</div>
-                    <div className="mono" style={{ fontWeight: 700 }}>LOT-GEO-2026-A</div>
+                    <div style={{ fontSize: "0.66rem", color: "var(--text-muted)" }}>QUALIFICATION LOT:</div>
+                    <div className="mono" style={{ fontWeight: 700, fontSize: "0.72rem" }}>LOT-GEO-2026-A</div>
                   </div>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", fontSize: "0.82rem", marginBottom: "1rem" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.6rem", fontSize: "0.72rem", marginBottom: "0.6rem" }}>
                   <div>
                     <span style={{ color: "var(--text-muted)" }}>Device Family:</span>
                     <div style={{ fontWeight: 600 }}>{activeFamily.name}</div>
@@ -1680,19 +1910,19 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div style={{ borderTop: "1px solid var(--border-subtle)", paddingTop: "0.75rem", fontSize: "0.75rem" }}>
+                <div style={{ borderTop: "1px solid var(--border-subtle)", paddingTop: "0.4rem", fontSize: "0.66rem" }}>
                   <span style={{ color: "var(--text-muted)" }}>Cryptographic SHA-256 Tamper-Evident Hash:</span>
-                  <div className="mono" style={{ color: "var(--text-secondary)", wordBreak: "break-all", marginTop: "0.25rem" }}>
+                  <div className="mono" style={{ color: "var(--text-secondary)", wordBreak: "break-all", marginTop: "0.15rem", fontSize: "0.65rem" }}>
                     7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069
                   </div>
                 </div>
               </div>
 
-              <div style={{ display: "flex", gap: "1rem", marginTop: "1.25rem" }}>
+              <div style={{ display: "flex", gap: "0.75rem", marginTop: "0.75rem" }}>
                 <button
                   id="btn-print-cert"
                   className="relay-btn reset"
-                  style={{ flex: 1, justifyContent: "center", fontSize: "0.9rem" }}
+                  style={{ flex: 1, justifyContent: "center", fontSize: "0.78rem", padding: "0.4rem 0.85rem" }}
                   onClick={async () => {
                     try {
                       const res = await fetch("http://localhost:5000/api/compliance/generate_certificate", {
@@ -1749,13 +1979,13 @@ export default function Home() {
         {activeTab === "hardware" && (
           <section className="section-grid-2">
             {/* Hardware Schematic & Telemetry Card */}
-            <div className="glass-panel" style={{ padding: "1.75rem" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.25rem" }}>
+            <div className="glass-panel">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.75rem" }}>
                 <div>
-                  <h2 style={{ fontSize: "1.35rem", marginBottom: "0.25rem" }}>
+                  <h2 style={{ fontSize: "1.05rem", marginBottom: "0.15rem" }}>
                     Edge PC Hardware Architecture
                   </h2>
-                  <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)" }}>
+                  <p style={{ fontSize: "0.72rem", color: "var(--text-secondary)" }}>
                     Raspberry Pi Zero 2 W reading live I2C sensors with Auto-Zero Shunt Calibration.
                   </p>
                 </div>
@@ -1807,10 +2037,10 @@ export default function Home() {
                 style={{
                   background: "var(--bg-inner)",
                   border: "1px solid var(--border-subtle)",
-                  borderRadius: "var(--radius-md)",
-                  padding: "1rem",
-                  marginTop: "1.5rem",
-                  fontSize: "0.82rem",
+                  borderRadius: "var(--radius-sm)",
+                  padding: "0.6rem 0.75rem",
+                  marginTop: "0.75rem",
+                  fontSize: "0.72rem",
                   color: "var(--text-secondary)"
                 }}
               >
@@ -1820,10 +2050,10 @@ export default function Home() {
 
             {/* Interactive Relay Actuation Console */}
             <div className="glass-panel relay-control-card">
-              <h2 style={{ fontSize: "1.35rem", marginBottom: "0.25rem" }}>
+              <h2 style={{ fontSize: "1.05rem", marginBottom: "0.15rem" }}>
                 Physical Relay Control Hub
               </h2>
-              <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)" }}>
+              <p style={{ fontSize: "0.72rem", color: "var(--text-secondary)" }}>
                 Active-low fail-safe cutoff switch physically isolating defective dies.
               </p>
 
@@ -1831,28 +2061,29 @@ export default function Home() {
               <div
                 id="relay-status-card"
                 className={`relay-status-display ${relayState === "CLOSED_POWER_ON" ? "active" : "tripped"}`}
+                style={{ margin: "0.5rem 0", padding: "0.6rem 1rem" }}
               >
                 <div>
                   <span
                     className={`pulse-beacon ${relayState === "CLOSED_POWER_ON" ? "online" : "tripped"}`}
-                    style={{ width: 18, height: 18 }}
+                    style={{ width: 14, height: 14 }}
                   />
                 </div>
                 <div style={{ textAlign: "left" }}>
-                  <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 600 }}>
+                  <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 600 }}>
                     RELAY COIL STATE (GPIO 17)
                   </div>
                   <div
                     style={{
                       fontFamily: "var(--font-display)",
-                      fontSize: "1.6rem",
+                      fontSize: "1.25rem",
                       fontWeight: 800,
                       color: relayState === "CLOSED_POWER_ON" ? "var(--success-green)" : "var(--danger-red)"
                     }}
                   >
                     {relayState === "CLOSED_POWER_ON" ? "CLOSED (POWER ON)" : "OPEN (POWER DISCONNECTED)"}
                   </div>
-                  <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)", marginTop: "0.2rem" }}>
+                  <div style={{ fontSize: "0.70rem", color: "var(--text-secondary)", marginTop: "0.15rem" }}>
                     {relayState === "CLOSED_POWER_ON"
                       ? "DUT Socket energized at 3.6V DC"
                       : relayTripReason || "Power physically cut via hardware relay"}
@@ -1861,14 +2092,15 @@ export default function Home() {
               </div>
 
               {/* Action Buttons */}
-              <div style={{ display: "flex", gap: "1rem", width: "100%", justifyContent: "center" }}>
+              <div style={{ display: "flex", gap: "0.75rem", width: "100%", justifyContent: "center" }}>
                 {relayState === "CLOSED_POWER_ON" ? (
                   <button
                     id="btn-manual-trip-relay"
                     className="relay-btn trip"
+                    style={{ fontSize: "0.78rem", padding: "0.4rem 1rem" }}
                     onClick={() => handleTripRelay("Manual Inspector Hardware Cutoff Command")}
                   >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
                     </svg>
                     TRIP RELAY (CUT POWER)
@@ -1877,9 +2109,10 @@ export default function Home() {
                   <button
                     id="btn-manual-reset-relay"
                     className="relay-btn reset"
+                    style={{ fontSize: "0.78rem", padding: "0.4rem 1rem" }}
                     onClick={handleResetRelay}
                   >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
                     </svg>
                     RESET RELAY (RESTORE POWER)
@@ -1889,6 +2122,7 @@ export default function Home() {
             </div>
           </section>
         )}
+
 
         {/* =========================================================================
             TAB 6: CLEANROOM FEDERATED EDGE MESH
